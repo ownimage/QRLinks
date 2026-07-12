@@ -103,7 +103,6 @@ function renderMain() {
         <div class="col" style="min-width:0">
           <div class="d-flex align-items-center gap-2 mb-1">
             <h4 class="mb-0">${escapeHtml(t.title)}</h4>
-            ${t.url ? `<span class="text-primary small">${escapeHtml(t.url)}</span>` : ""}
           </div>
           ${t.description ? `<div class="text-secondary small">${escapeHtml(t.description)}</div>` : ""}
         </div>
@@ -265,22 +264,22 @@ function renderStreamsEditor() {
       }
       if (cards.length > 0) cards[cards.length - 1].classList.add("drag-over-bottom");
     }
-    list.addEventListener("dragstart", e => {
+    function onDragStart(e) {
       const card = e.target.closest(".stream-drag-card");
       if (!card) return;
       dragDisplayIdx = parseInt(card.dataset.displayIdx);
       card.classList.add("dragging");
       e.dataTransfer.effectAllowed = "move";
-    });
-    list.addEventListener("dragend", e => {
+    }
+    function onDragEnd() {
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("dragging", "drag-over-top", "drag-over-bottom"));
-    });
-    list.addEventListener("dragover", e => {
+    }
+    function onDragOver(e) {
       e.preventDefault();
       if (dragDisplayIdx < 0) return;
       showDropIndicator(e.clientY);
-    });
-    list.addEventListener("drop", e => {
+    }
+    function onDrop(e) {
       e.preventDefault();
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("drag-over-top", "drag-over-bottom"));
       if (dragDisplayIdx < 0) return;
@@ -290,10 +289,22 @@ function renderStreamsEditor() {
       const [moved] = sorted.splice(dragDisplayIdx, 1);
       sorted.splice(dragDisplayIdx < insertIdx ? insertIdx - 1 : insertIdx, 0, moved);
       sorted.forEach((t, i) => t.sequence = i + 1);
-      saveStreams(streams);
+      saveStreams(sorted);
       dragDisplayIdx = -1;
       renderStreamsEditor();
-    });
+    }
+    list.removeEventListener("dragstart", list._onDragStart);
+    list.removeEventListener("dragend", list._onDragEnd);
+    list.removeEventListener("dragover", list._onDragOver);
+    list.removeEventListener("drop", list._onDrop);
+    list._onDragStart = onDragStart;
+    list._onDragEnd = onDragEnd;
+    list._onDragOver = onDragOver;
+    list._onDrop = onDrop;
+    list.addEventListener("dragstart", onDragStart);
+    list.addEventListener("dragend", onDragEnd);
+    list.addEventListener("dragover", onDragOver);
+    list.addEventListener("drop", onDrop);
 
     // touch DnD fallback for iOS
     addTouchDnD(list, ".stream-drag-card", c => parseInt(c.dataset.displayIdx), (srcDisplayIdx, dstDisplayIdx, above) => {
@@ -305,7 +316,7 @@ function renderStreamsEditor() {
       const insertAt = above ? adjDst : adjDst + 1;
       sorted.splice(insertAt, 0, moved);
       sorted.forEach((t, i) => t.sequence = i + 1);
-      saveStreams(streams);
+      saveStreams(sorted);
       renderStreamsEditor();
     });
 
