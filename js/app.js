@@ -1,9 +1,9 @@
 // STORAGE HELPERS
 function loadStreams() {
-  return JSON.parse(localStorage.getItem("planmydays_streams") || "[]");
+  return JSON.parse(localStorage.getItem("qr_streams") || "[]");
 }
 function saveStreams(streams) {
-  localStorage.setItem("planmydays_streams", JSON.stringify(streams));
+  localStorage.setItem("qr_streams", JSON.stringify(streams));
 }
 
 function hideAllEditors() {
@@ -399,16 +399,16 @@ function openSettings() {
   document.getElementById("settingsPage").classList.remove("d-none");
   document.getElementById("settingsPage").style.display = "block";
 
-  const savedTheme = localStorage.getItem("theme") || "darkly";
+  const savedTheme = localStorage.getItem("qr_theme") || "darkly";
   const themeSel = document.getElementById("themeSelector");
   if (themeSel) themeSel.value = savedTheme;
-  const savedFontSize = localStorage.getItem("fontSize") || "xlarge";
+  const savedFontSize = localStorage.getItem("qr_fontSize") || "xlarge";
   const fontSizeSel = document.getElementById("fontSizeSelector");
   if (fontSizeSel) fontSizeSel.value = savedFontSize;
-  const autoHide = localStorage.getItem("autoHideMenu") === "true";
+  const autoHide = localStorage.getItem("qr_autoHideMenu") === "true";
   const autoHideCb = document.getElementById("autoHideMenu");
   if (autoHideCb) autoHideCb.checked = autoHide;
-  const showDanger = localStorage.getItem("showDanger") === "true";
+  const showDanger = localStorage.getItem("qr_showDanger") === "true";
   const showDangerCb = document.getElementById("showDanger");
   if (showDangerCb) showDangerCb.checked = showDanger;
   ["clearAllDataRow", "refreshAppRow", "uploadStandardImagesRow"].forEach(id => {
@@ -427,10 +427,10 @@ function openSettings() {
     });
   }
 
-  const savedIconSize = localStorage.getItem("iconSize") || "large";
+  const savedIconSize = localStorage.getItem("qr_iconSize") || "large";
   const iconSel = document.getElementById("iconSizeSelector");
   if (iconSel) iconSel.value = savedIconSize;
-  const savedDensity = localStorage.getItem("density") || "normal";
+  const savedDensity = localStorage.getItem("qr_density") || "normal";
   const densitySel = document.getElementById("densitySelector");
   if (densitySel) densitySel.value = savedDensity;
 }
@@ -470,7 +470,7 @@ function confirmClearAllData() {
   const modalEl = document.getElementById("deleteConfirmModal");
   document.getElementById("deleteConfirmMessage").textContent = "Clear ALL data? This cannot be undone.";
   document.getElementById("deleteConfirmBtn").onclick = function() {
-    localStorage.removeItem("planmydays_streams");
+    localStorage.removeItem("qr_streams");
     bootstrap.Modal.getInstance(modalEl).hide();
     closeSettings();
   };
@@ -481,8 +481,8 @@ function exportData() {
   const data = {
     version: 1,
     exportedAt: new Date().toISOString(),
-    streams: JSON.parse(localStorage.getItem("planmydays_streams") || "[]"),
-    images: JSON.parse(localStorage.getItem("images") || "[]")
+    streams: JSON.parse(localStorage.getItem("qr_streams") || "[]"),
+    images: JSON.parse(localStorage.getItem("qr_images") || "[]")
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -510,8 +510,8 @@ function importData() {
           alert("Invalid backup file: missing streams or images data.");
           return;
         }
-        if (data.streams) localStorage.setItem("planmydays_streams", JSON.stringify(data.streams));
-        if (data.images) localStorage.setItem("images", JSON.stringify(data.images));
+        if (data.streams) localStorage.setItem("qr_streams", JSON.stringify(data.streams));
+        if (data.images) localStorage.setItem("qr_images", JSON.stringify(data.images));
         closeSettings();
         renderMain();
       } catch (err) {
@@ -524,7 +524,7 @@ function importData() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme") || "darkly";
+  const savedTheme = localStorage.getItem("qr_theme") || "darkly";
   applyTheme(savedTheme);
   if (typeof seedSampleImages === "function") seedSampleImages();
 

@@ -7,11 +7,11 @@ let imagesTotalPages = 1;
 const IMAGES_PAGE_SIZE = 30;
 
 function loadImages() {
-  return JSON.parse(localStorage.getItem("images") || "[]");
+  return JSON.parse(localStorage.getItem("qr_images") || "[]");
 }
 
 function saveImages(images) {
-  localStorage.setItem("images", JSON.stringify(images));
+  localStorage.setItem("qr_images", JSON.stringify(images));
 }
 
 function getImageColors(dataUrl) {
@@ -554,7 +554,7 @@ function clearImagePickerFilter() {
 }
 
 function seedSampleImages() {
-  if (localStorage.getItem("images")) return;
+  if (localStorage.getItem("qr_images")) return;
   fetch("sampleImages.json?v=" + (typeof BUILD_NUMBER !== "undefined" ? BUILD_NUMBER : Date.now()))
     .then(res => res.json())
     .then(data => {

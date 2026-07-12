@@ -34,7 +34,7 @@ function applyTheme(name) {
   const link = document.getElementById("bootstrap-theme-css");
   if (link) link.href = config.css;
   document.documentElement.setAttribute("data-bs-theme", config.bsTheme);
-  localStorage.setItem("theme", name);
+  localStorage.setItem("qr_theme", name);
 }
 
 function changeTheme(name) {
@@ -43,7 +43,7 @@ function changeTheme(name) {
 
 // FONT SIZE
 function changeFontSize(value) {
-  localStorage.setItem("fontSize", value);
+  localStorage.setItem("qr_fontSize", value);
   document.body.classList.remove("font-size-xsmall", "font-size-small", "font-size-normal", "font-size-large", "font-size-xlarge", "font-size-jumbo");
   if (value !== "normal") {
     document.body.classList.add("font-size-" + value);
@@ -52,14 +52,14 @@ function changeFontSize(value) {
 
 // ICON SIZE
 function changeIconSize(value) {
-  localStorage.setItem("iconSize", value);
+  localStorage.setItem("qr_iconSize", value);
   document.body.classList.remove("icon-size-small", "icon-size-medium", "icon-size-large");
   document.body.classList.add("icon-size-" + value);
 }
 
 // TILE DENSITY
 function changeDensity(value) {
-  localStorage.setItem("density", value);
+  localStorage.setItem("qr_density", value);
   document.body.classList.remove("compact", "density-normal");
   if (value !== "normal") {
     document.body.classList.add(value);
@@ -67,7 +67,7 @@ function changeDensity(value) {
 }
 
 function changeShowDanger(enabled) {
-  localStorage.setItem("showDanger", enabled);
+  localStorage.setItem("qr_showDanger", enabled);
   ["clearAllDataRow", "refreshAppRow", "uploadStandardImagesRow"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.toggle("d-none", !enabled);
@@ -97,7 +97,7 @@ function hideNav() {
 
 function resetAutoHideTimer() {
   if (autoHideCooldown) return;
-  const enabled = localStorage.getItem("autoHideMenu") === "true";
+  const enabled = localStorage.getItem("qr_autoHideMenu") === "true";
   if (!enabled) return;
   showNav();
   clearTimeout(autoHideTimer);
@@ -128,7 +128,7 @@ function unbindAutoHideEvents() {
 }
 
 function changeAutoHideMenu(enabled) {
-  localStorage.setItem("autoHideMenu", enabled);
+  localStorage.setItem("qr_autoHideMenu", enabled);
   document.body.classList.toggle("auto-hide-menu", enabled);
   if (enabled) {
     bindAutoHideEvents();
@@ -141,20 +141,20 @@ function changeAutoHideMenu(enabled) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedFontSize = localStorage.getItem("fontSize") || "xlarge";
+  const savedFontSize = localStorage.getItem("qr_fontSize") || "xlarge";
   if (savedFontSize !== "normal") {
     document.body.classList.add("font-size-" + savedFontSize);
   }
 
-  const savedIconSize = localStorage.getItem("iconSize") || "large";
+  const savedIconSize = localStorage.getItem("qr_iconSize") || "large";
   document.body.classList.add("icon-size-" + savedIconSize);
 
-  const savedDensity = localStorage.getItem("density") || "normal";
+  const savedDensity = localStorage.getItem("qr_density") || "normal";
   if (savedDensity !== "normal") {
     document.body.classList.add(savedDensity);
   }
 
-  const autoHide = localStorage.getItem("autoHideMenu") === "true";
+  const autoHide = localStorage.getItem("qr_autoHideMenu") === "true";
   if (autoHide) {
     document.body.classList.add("auto-hide-menu");
     bindAutoHideEvents();
