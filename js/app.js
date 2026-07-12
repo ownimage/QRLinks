@@ -227,6 +227,7 @@ function renderStreamsEditor() {
     card.className = "card p-3 mb-3 stream-drag-card";
     card.draggable = true;
     card.dataset.index = realIdx;
+    card.dataset.displayIdx = displayIdx;
     card.innerHTML = `
       <div class="d-flex align-items-center gap-2 mb-2">
         <div class="drag-handle text-secondary" style="cursor:grab;font-size:1.3rem;line-height:1">&#9776;</div>
@@ -242,66 +243,81 @@ function renderStreamsEditor() {
     list.appendChild(card);
   });
 
-    // drag and drop handlers
-    let dragSrcIndex = -1;
+    // drag and drop handlers — operates on sorted display order
+    let dragDisplayIdx = -1;
     list.addEventListener("dragstart", e => {
       const card = e.target.closest(".stream-drag-card");
       if (!card) return;
-      dragSrcIndex = parseInt(card.dataset.index);
+      dragDisplayIdx = parseInt(card.dataset.displayIdx);
       card.classList.add("dragging");
       e.dataTransfer.effectAllowed = "move";
     });
     list.addEventListener("dragend", e => {
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("dragging", "drag-over-top", "drag-over-bottom"));
+      list.classList.remove("drag-before", "drag-after");
     });
     list.addEventListener("dragover", e => {
       e.preventDefault();
-      const target = e.target.closest(".stream-drag-card");
-      if (!target || dragSrcIndex < 0) return;
+      if (dragDisplayIdx < 0) return;
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("drag-over-top", "drag-over-bottom"));
-      const rect = target.getBoundingClientRect();
-      target.classList.add(e.clientY < rect.top + rect.height / 2 ? "drag-over-top" : "drag-over-bottom");
+      list.classList.remove("drag-before", "drag-after");
+      const target = e.target.closest(".stream-drag-card");
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        target.classList.add(e.clientY < rect.top + rect.height / 2 ? "drag-over-top" : "drag-over-bottom");
+      } else {
+        const cards = list.querySelectorAll(".stream-drag-card");
+        if (cards.length > 0) {
+          const firstRect = cards[0].getBoundingClientRect();
+          const lastRect = cards[cards.length - 1].getBoundingClientRect();
+          if (e.clientY < firstRect.top) list.classList.add("drag-before");
+          else if (e.clientY > lastRect.bottom) list.classList.add("drag-after");
+        }
+      }
     });
     list.addEventListener("drop", e => {
       e.preventDefault();
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("drag-over-top", "drag-over-bottom"));
-      const target = e.target.closest(".stream-drag-card");
-      if (!target || dragSrcIndex < 0) return;
-      const dropIndex = parseInt(target.dataset.index);
-      if (dropIndex === dragSrcIndex) { dragSrcIndex = -1; return; }
+      list.classList.remove("drag-before", "drag-after");
+      if (dragDisplayIdx < 0) return;
       const streams = loadStreams();
-      const [moved] = streams.splice(dragSrcIndex, 1);
-      const rect = target.getBoundingClientRect();
-      const above = e.clientY < rect.top + rect.height / 2;
-      let insertAt;
-      if (dragSrcIndex < dropIndex) {
-        const actualDropIdx = dropIndex - 1;
-        insertAt = above ? actualDropIdx : actualDropIdx + 1;
+      const sorted = [...streams].sort((a, b) => (a.sequence || 0) - (b.sequence || 0));
+      const [moved] = sorted.splice(dragDisplayIdx, 1);
+      const target = e.target.closest(".stream-drag-card");
+      let insertDisplayIdx;
+      if (target) {
+        const targetDisplayIdx = parseInt(target.dataset.displayIdx);
+        const rect = target.getBoundingClientRect();
+        const above = e.clientY < rect.top + rect.height / 2;
+        const adjTarget = dragDisplayIdx < targetDisplayIdx ? targetDisplayIdx - 1 : targetDisplayIdx;
+        insertDisplayIdx = above ? adjTarget : adjTarget + 1;
       } else {
-        insertAt = above ? dropIndex : dropIndex + 1;
+        const cards = list.querySelectorAll(".stream-drag-card");
+        if (cards.length > 0) {
+          const firstRect = cards[0].getBoundingClientRect();
+          insertDisplayIdx = e.clientY < firstRect.top ? 0 : sorted.length;
+        } else {
+          insertDisplayIdx = 0;
+        }
       }
-      streams.splice(insertAt, 0, moved);
-      streams.forEach((t, i) => t.sequence = i + 1);
+      sorted.splice(insertDisplayIdx, 0, moved);
+      sorted.forEach((t, i) => t.sequence = i + 1);
       saveStreams(streams);
-      dragSrcIndex = -1;
+      dragDisplayIdx = -1;
       renderStreamsEditor();
     });
 
     // touch DnD fallback for iOS
-    addTouchDnD(list, ".stream-drag-card", c => parseInt(c.dataset.index), (srcIdx, dstIdx, above) => {
-      if (srcIdx === dstIdx) return;
-      const s = loadStreams();
-      const [moved] = s.splice(srcIdx, 1);
-      let insertAt;
-      if (srcIdx < dstIdx) {
-        const actualDropIdx = dstIdx - 1;
-        insertAt = above ? actualDropIdx : actualDropIdx + 1;
-      } else {
-        insertAt = above ? dstIdx : dstIdx + 1;
-      }
-      s.splice(insertAt, 0, moved);
-      s.forEach((t, i) => t.sequence = i + 1);
-      saveStreams(s);
+    addTouchDnD(list, ".stream-drag-card", c => parseInt(c.dataset.displayIdx), (srcDisplayIdx, dstDisplayIdx, above) => {
+      if (srcDisplayIdx === dstDisplayIdx) return;
+      const streams = loadStreams();
+      const sorted = [...streams].sort((a, b) => (a.sequence || 0) - (b.sequence || 0));
+      const [moved] = sorted.splice(srcDisplayIdx, 1);
+      const adjDst = srcDisplayIdx < dstDisplayIdx ? dstDisplayIdx - 1 : dstDisplayIdx;
+      const insertAt = above ? adjDst : adjDst + 1;
+      sorted.splice(insertAt, 0, moved);
+      sorted.forEach((t, i) => t.sequence = i + 1);
+      saveStreams(streams);
       renderStreamsEditor();
     });
 

@@ -497,6 +497,14 @@ body.compact .editor-btn {
 .stream-drag-card .drag-handle:active {
   cursor: grabbing;
 }
+#streamEditorList.drag-before {
+  border-top: 3px solid var(--bs-primary) !important;
+  padding-top: 4px;
+}
+#streamEditorList.drag-after {
+  border-bottom: 3px solid var(--bs-primary) !important;
+  padding-bottom: 4px;
+}
 
 /* Flatpickr dark theme arrow fixes */
 .flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg path,
