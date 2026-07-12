@@ -243,8 +243,28 @@ function renderStreamsEditor() {
     list.appendChild(card);
   });
 
-    // drag and drop handlers — operates on sorted display order
+    // drag and drop — uses mouse Y against each card's midpoints for reliable positioning
     let dragDisplayIdx = -1;
+    function getInsertIdx(y) {
+      const cards = list.querySelectorAll(".stream-drag-card");
+      for (let i = 0; i < cards.length; i++) {
+        const r = cards[i].getBoundingClientRect();
+        if (y < r.top + r.height / 2) return i;
+      }
+      return cards.length;
+    }
+    function showDropIndicator(y) {
+      document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("drag-over-top", "drag-over-bottom"));
+      const cards = list.querySelectorAll(".stream-drag-card");
+      for (let i = 0; i < cards.length; i++) {
+        const r = cards[i].getBoundingClientRect();
+        if (y < r.top + r.height / 2) {
+          cards[i].classList.add("drag-over-top");
+          return;
+        }
+      }
+      if (cards.length > 0) cards[cards.length - 1].classList.add("drag-over-bottom");
+    }
     list.addEventListener("dragstart", e => {
       const card = e.target.closest(".stream-drag-card");
       if (!card) return;
@@ -254,53 +274,21 @@ function renderStreamsEditor() {
     });
     list.addEventListener("dragend", e => {
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("dragging", "drag-over-top", "drag-over-bottom"));
-      list.classList.remove("drag-before", "drag-after");
     });
     list.addEventListener("dragover", e => {
       e.preventDefault();
       if (dragDisplayIdx < 0) return;
-      document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("drag-over-top", "drag-over-bottom"));
-      list.classList.remove("drag-before", "drag-after");
-      const target = e.target.closest(".stream-drag-card");
-      if (target) {
-        const rect = target.getBoundingClientRect();
-        target.classList.add(e.clientY < rect.top + rect.height / 2 ? "drag-over-top" : "drag-over-bottom");
-      } else {
-        const cards = list.querySelectorAll(".stream-drag-card");
-        if (cards.length > 0) {
-          const firstRect = cards[0].getBoundingClientRect();
-          const lastRect = cards[cards.length - 1].getBoundingClientRect();
-          if (e.clientY < firstRect.top) list.classList.add("drag-before");
-          else if (e.clientY > lastRect.bottom) list.classList.add("drag-after");
-        }
-      }
+      showDropIndicator(e.clientY);
     });
     list.addEventListener("drop", e => {
       e.preventDefault();
       document.querySelectorAll(".stream-drag-card").forEach(c => c.classList.remove("drag-over-top", "drag-over-bottom"));
-      list.classList.remove("drag-before", "drag-after");
       if (dragDisplayIdx < 0) return;
       const streams = loadStreams();
       const sorted = [...streams].sort((a, b) => (a.sequence || 0) - (b.sequence || 0));
+      const insertIdx = getInsertIdx(e.clientY);
       const [moved] = sorted.splice(dragDisplayIdx, 1);
-      const target = e.target.closest(".stream-drag-card");
-      let insertDisplayIdx;
-      if (target) {
-        const targetDisplayIdx = parseInt(target.dataset.displayIdx);
-        const rect = target.getBoundingClientRect();
-        const above = e.clientY < rect.top + rect.height / 2;
-        const adjTarget = dragDisplayIdx < targetDisplayIdx ? targetDisplayIdx - 1 : targetDisplayIdx;
-        insertDisplayIdx = above ? adjTarget : adjTarget + 1;
-      } else {
-        const cards = list.querySelectorAll(".stream-drag-card");
-        if (cards.length > 0) {
-          const firstRect = cards[0].getBoundingClientRect();
-          insertDisplayIdx = e.clientY < firstRect.top ? 0 : sorted.length;
-        } else {
-          insertDisplayIdx = 0;
-        }
-      }
-      sorted.splice(insertDisplayIdx, 0, moved);
+      sorted.splice(dragDisplayIdx < insertIdx ? insertIdx - 1 : insertIdx, 0, moved);
       sorted.forEach((t, i) => t.sequence = i + 1);
       saveStreams(streams);
       dragDisplayIdx = -1;
