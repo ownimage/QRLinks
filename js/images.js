@@ -455,7 +455,6 @@ function deleteImage(index) {
 function openImagesEditor() {
   document.getElementById("countdownContainer").classList.add("d-none");
   document.getElementById("streamsEditor").classList.add("d-none");
-  document.getElementById("jobsEditor").classList.add("d-none");
   document.getElementById("settingsPage").classList.add("d-none");
   document.getElementById("imagesEditor").classList.remove("d-none");
   imagesPage = 0;
