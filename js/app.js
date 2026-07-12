@@ -93,10 +93,7 @@ function renderMain() {
     const imgUrl = getImageDataUrl(t.image);
     const card = document.createElement("div");
     card.className = "card countdown-card mb-2";
-    if (t.url) {
-      card.style.cursor = "pointer";
-      card.addEventListener("click", function() { window.open(t.url, "_blank"); });
-    }
+
     const qrBtnId = "qrBtn_" + (streams.indexOf(t));
     card.innerHTML = `
       <div class="row align-items-center">
