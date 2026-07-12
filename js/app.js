@@ -97,6 +97,7 @@ function renderMain() {
       card.style.cursor = "pointer";
       card.addEventListener("click", function() { window.open(t.url, "_blank"); });
     }
+    const qrBtnId = "qrBtn_" + (streams.indexOf(t));
     card.innerHTML = `
       <div class="row align-items-center">
         <div class="col-auto d-flex align-items-center" style="min-width:68px">
@@ -109,9 +110,30 @@ function renderMain() {
           </div>
           ${t.description ? `<div class="text-secondary small">${escapeHtml(t.description)}</div>` : ""}
         </div>
+        ${t.url ? `
+        <div class="col-auto ps-0">
+          <button id="${qrBtnId}" class="btn btn-sm btn-primary p-1" title="QR" style="line-height:1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M0 0h6v6H0V0zm2 2v2h2V2H2z"/>
+              <path d="M10 0h6v6h-6V0zm2 2v2h2V2h-2z"/>
+              <path d="M0 10h6v6H0v-6zm2 2v2h2v-2H2z"/>
+              <path d="M13 10h1v1h-1v-1zm-1 1h1v1h-1v-1zm-1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm-1 1h1v1h-1v-1zm1 1h1v1h-1v-1zm-1 1h1v1h-1v-1zm3 0h1v1h-1v-1zm1-1h1v1h-1v-1zm-1-4h1v1h-1v-1zm1 2h1v1h-1v-1zm-5 1h1v1h-1v-1zm-1 1h1v1h-1v-1zm2-1h1v1h-1v-1z"/>
+            </svg>
+          </button>
+        </div>
+        ` : ""}
       </div>
     `;
     container.appendChild(card);
+    if (t.url) {
+      const qrBtn = document.getElementById(qrBtnId);
+      if (qrBtn) {
+        qrBtn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          showQrModal(t.url, t.title);
+        });
+      }
+    }
   });
 
   updateNavState();
@@ -418,6 +440,24 @@ function closeSettings() {
   document.getElementById("countdownContainer").classList.remove("d-none");
   delete document.getElementById("countdownContainer").dataset.showAll;
   renderMain();
+}
+
+function showQrModal(url, title) {
+  const modalEl = document.getElementById("qrModal");
+  document.getElementById("qrModalTitle").textContent = title || "QR Code";
+  document.getElementById("qrModalUrl").textContent = url;
+  const container = document.getElementById("qrModalCode");
+  container.innerHTML = "";
+  new QRCode(container, {
+    text: url,
+    width: 180,
+    height: 180,
+    margin: 8
+  });
+  new bootstrap.Modal(modalEl).show();
+  modalEl.addEventListener("hidden.bs.modal", function() {
+    container.innerHTML = "";
+  }, { once: true });
 }
 
 function confirmClearAllData() {
