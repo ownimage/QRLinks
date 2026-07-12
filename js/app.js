@@ -199,8 +199,8 @@ function renderStreamsEditor() {
               ${getImageDataUrl(data.image) ? `<img src="${getImageDataUrl(data.image)}" class="date-img" style="max-width:50px;max-height:50px">` : `<span class="text-secondary small">none</span>`}
             </div>
             <span class="small text-secondary" id="streamImageName">${escapeHtml(data.image || "")}</span>
-            <button class="btn btn-outline-primary btn-sm" onclick="openImagePicker(function(name){ editField('image', name); updateStreamImagePreview(name); })">Choose</button>
-            ${data.image ? `<button class="btn btn-outline-danger btn-sm" onclick="editField('image','');updateStreamImagePreview(null)">Remove</button>` : ""}
+            <button class="btn btn-primary btn-sm" onclick="openImagePicker(function(name){ editField('image', name); updateStreamImagePreview(name); })">Choose</button>
+            ${data.image ? `<button class="btn btn-danger btn-sm" onclick="editField('image','');updateStreamImagePreview(null)">Remove</button>` : ""}
           </div>
         </div>
         <div class="d-flex gap-2 mt-3">
@@ -451,9 +451,14 @@ function showQrModal(url, title) {
     height: 180,
     margin: 8
   });
+  const openBtn = document.getElementById("qrOpenBtn");
+  if (openBtn) {
+    openBtn.onclick = function() { window.open(url, "_blank"); };
+  }
   new bootstrap.Modal(modalEl).show();
   modalEl.addEventListener("hidden.bs.modal", function() {
     container.innerHTML = "";
+    if (openBtn) openBtn.onclick = null;
   }, { once: true });
 }
 
