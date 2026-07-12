@@ -1,9 +1,9 @@
 // STORAGE HELPERS
 function loadStreams() {
-  return JSON.parse(localStorage.getItem("qr_streams") || "[]");
+  return JSON.parse(localStorage.getItem("qr_links") || "[]");
 }
 function saveStreams(streams) {
-  localStorage.setItem("qr_streams", JSON.stringify(streams));
+  localStorage.setItem("qr_links", JSON.stringify(streams));
 }
 
 function hideAllEditors() {
@@ -470,7 +470,7 @@ function confirmClearAllData() {
   const modalEl = document.getElementById("deleteConfirmModal");
   document.getElementById("deleteConfirmMessage").textContent = "Clear ALL data? This cannot be undone.";
   document.getElementById("deleteConfirmBtn").onclick = function() {
-    localStorage.removeItem("qr_streams");
+    localStorage.removeItem("qr_links");
     bootstrap.Modal.getInstance(modalEl).hide();
     closeSettings();
   };
@@ -481,7 +481,7 @@ function exportData() {
   const data = {
     version: 1,
     exportedAt: new Date().toISOString(),
-    streams: JSON.parse(localStorage.getItem("qr_streams") || "[]"),
+    streams: JSON.parse(localStorage.getItem("qr_links") || "[]"),
     images: JSON.parse(localStorage.getItem("qr_images") || "[]")
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -510,7 +510,7 @@ function importData() {
           alert("Invalid backup file: missing streams or images data.");
           return;
         }
-        if (data.streams) localStorage.setItem("qr_streams", JSON.stringify(data.streams));
+        if (data.streams) localStorage.setItem("qr_links", JSON.stringify(data.streams));
         if (data.images) localStorage.setItem("qr_images", JSON.stringify(data.images));
         closeSettings();
         renderMain();
