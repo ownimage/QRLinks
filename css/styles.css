@@ -1,0 +1,577 @@
+/* IMAGES */
+.countdown-img,
+.date-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+@media (max-width: 480px) {
+  .countdown-img,
+  .date-img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+body.icon-size-small .countdown-img,
+body.icon-size-small .date-img {
+  width: 64px !important;
+  height: 64px !important;
+}
+body.icon-size-medium .countdown-img,
+body.icon-size-medium .date-img {
+  width: 80px !important;
+  height: 80px !important;
+}
+body.icon-size-large .countdown-img,
+body.icon-size-large .date-img {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+body.compact .countdown-card {
+  padding: 0.25rem 0.5rem;
+}
+body.compact .countdown-card .countdown-img,
+body.compact .countdown-card .date-img {
+  width: 48px !important;
+  height: 48px !important;
+}
+body.compact .card {
+  margin-bottom: 0.25rem !important;
+}
+body.compact #countdownContainer .mb-3 {
+  margin-bottom: 0.25rem !important;
+}
+body.compact .countdown-card h4 {
+  font-size: 1rem !important;
+}
+body.compact .countdown-card .h4 {
+  font-size: 1rem !important;
+}
+body.compact .countdown-card .row > div {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+body.compact .countdown-card .mt-1 {
+  margin-top: 0 !important;
+}
+body.compact .countdown-card .mb-1 {
+  margin-bottom: 0 !important;
+}
+body.compact .countdown-card .gap-1 {
+  gap: 0.15rem !important;
+}
+body.compact .card.p-3 {
+  padding: 0.4rem 0.5rem !important;
+}
+body.compact .editor-btn {
+  min-width: 70px;
+}
+body.compact .btn-wide {
+  min-width: 160px;
+}
+
+.countdown-card {
+  border-width: 1px;
+  padding: 0.5rem 0.75rem;
+}
+
+.countdown-card .row {
+  flex-wrap: nowrap;
+}
+
+.type-select {
+  width: auto;
+  flex: 0 0 auto;
+}
+.date-day-select {
+  width: 100px;
+  flex-shrink: 0;
+}
+.date-month-select {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.flatpickr-date {
+  min-width: 120px;
+  width: 100%;
+}
+
+[data-bs-theme="light"] .form-control,
+[data-bs-theme="light"] .form-select {
+  border-color: #999;
+}
+[data-bs-theme="light"] .form-control:focus,
+[data-bs-theme="light"] .form-select:focus {
+  border-color: #86b7fe;
+}
+
+[data-bs-theme="dark"] .flatpickr-calendar {
+  background: #1e1e1e;
+  border: 1px solid #444;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-month,
+[data-bs-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: transparent;
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months option {
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] .flatpickr-current-month input.cur-year {
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] span.flatpickr-weekday {
+  background: transparent;
+  color: #aaa;
+}
+[data-bs-theme="dark"] .flatpickr-day {
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] .flatpickr-day.today {
+  border-color: var(--bs-primary);
+}
+[data-bs-theme="dark"] .flatpickr-day:hover {
+  background: #333;
+  border-color: #555;
+}
+[data-bs-theme="dark"] .flatpickr-day.selected,
+[data-bs-theme="dark"] .flatpickr-day.startRange,
+[data-bs-theme="dark"] .flatpickr-day.endRange,
+[data-bs-theme="dark"] .flatpickr-day.selected.inRange {
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+}
+[data-bs-theme="dark"] .flatpickr-day.inRange {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+[data-bs-theme="dark"] .flatpickr-day.flatpickr-disabled,
+[data-bs-theme="dark"] .flatpickr-day.flatpickr-disabled:hover {
+  color: #555;
+}
+[data-bs-theme="dark"] .flatpickr-day.prevMonthDay,
+[data-bs-theme="dark"] .flatpickr-day.nextMonthDay {
+  color: #555;
+}
+[data-bs-theme="dark"] .flatpickr-time {
+  border-top-color: #444;
+}
+[data-bs-theme="dark"] .flatpickr-time input {
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] .flatpickr-time .flatpickr-time-separator,
+[data-bs-theme="dark"] .flatpickr-time .flatpickr-am-pm {
+  color: #e0e0e0;
+}
+[data-bs-theme="dark"] .flatpickr-calendar.arrowTop:before {
+  border-bottom-color: #444;
+}
+[data-bs-theme="dark"] .flatpickr-calendar.arrowTop:after {
+  border-bottom-color: #1e1e1e;
+}
+[data-bs-theme="dark"] .flatpickr-calendar.arrowBottom:before {
+  border-top-color: #444;
+}
+[data-bs-theme="dark"] .flatpickr-calendar.arrowBottom:after {
+  border-top-color: #1e1e1e;
+}
+
+body.font-size-xsmall,
+body.font-size-xsmall .navbar .btn,
+body.font-size-xsmall .navbar .dropdown-item,
+body.font-size-xsmall #settingsPage,
+body.font-size-xsmall #settingsPage .btn,
+body.font-size-xsmall #settingsPage .form-label,
+body.font-size-xsmall #settingsPage .form-control,
+body.font-size-xsmall #settingsPage .form-select,
+body.font-size-xsmall #streamsEditor,
+body.font-size-xsmall #streamsEditor .btn,
+body.font-size-xsmall #streamsEditor .form-label,
+body.font-size-xsmall #streamsEditor .form-control,
+body.font-size-xsmall #streamsEditor .form-select,
+body.font-size-xsmall #countdownContainer,
+body.font-size-xsmall #countdownContainer .btn,
+body.font-size-xsmall #jobsEditor,
+body.font-size-xsmall #jobsEditor .btn,
+body.font-size-xsmall #jobsEditor .form-label,
+body.font-size-xsmall #jobsEditor .form-control,
+body.font-size-xsmall #jobsEditor .form-select,
+body.font-size-xsmall #imagesEditor,
+body.font-size-xsmall #imagesEditor .btn,
+body.font-size-xsmall #imagesEditor .form-label,
+body.font-size-xsmall #imagesEditor .form-control,
+body.font-size-xsmall #imagesEditor .form-select,
+body.font-size-xsmall #deleteConfirmModal,
+body.font-size-xsmall #deleteConfirmModal .btn {
+  font-size: 0.8rem;
+}
+body.font-size-small,
+body.font-size-small .navbar .btn,
+body.font-size-small .navbar .dropdown-item,
+body.font-size-small #settingsPage,
+body.font-size-small #settingsPage .btn,
+body.font-size-small #settingsPage .form-label,
+body.font-size-small #settingsPage .form-control,
+body.font-size-small #settingsPage .form-select,
+body.font-size-small #streamsEditor,
+body.font-size-small #streamsEditor .btn,
+body.font-size-small #streamsEditor .form-label,
+body.font-size-small #streamsEditor .form-control,
+body.font-size-small #streamsEditor .form-select,
+body.font-size-small #countdownContainer,
+body.font-size-small #countdownContainer .btn,
+body.font-size-small #jobsEditor,
+body.font-size-small #jobsEditor .btn,
+body.font-size-small #jobsEditor .form-label,
+body.font-size-small #jobsEditor .form-control,
+body.font-size-small #jobsEditor .form-select,
+body.font-size-small #imagesEditor,
+body.font-size-small #imagesEditor .btn,
+body.font-size-small #imagesEditor .form-label,
+body.font-size-small #imagesEditor .form-control,
+body.font-size-small #imagesEditor .form-select,
+body.font-size-small #deleteConfirmModal,
+body.font-size-small #deleteConfirmModal .btn {
+  font-size: 0.925rem;
+}
+body.font-size-large,
+body.font-size-large .navbar .btn,
+body.font-size-large .navbar .dropdown-item,
+body.font-size-large #settingsPage,
+body.font-size-large #settingsPage .btn,
+body.font-size-large #settingsPage .form-label,
+body.font-size-large #settingsPage .form-control,
+body.font-size-large #settingsPage .form-select,
+body.font-size-large #streamsEditor,
+body.font-size-large #streamsEditor .btn,
+body.font-size-large #streamsEditor .form-label,
+body.font-size-large #streamsEditor .form-control,
+body.font-size-large #streamsEditor .form-select,
+body.font-size-large #countdownContainer,
+body.font-size-large #countdownContainer .btn,
+body.font-size-large #jobsEditor,
+body.font-size-large #jobsEditor .btn,
+body.font-size-large #jobsEditor .form-label,
+body.font-size-large #jobsEditor .form-control,
+body.font-size-large #jobsEditor .form-select,
+body.font-size-large #imagesEditor,
+body.font-size-large #imagesEditor .btn,
+body.font-size-large #imagesEditor .form-label,
+body.font-size-large #imagesEditor .form-control,
+body.font-size-large #imagesEditor .form-select,
+body.font-size-large #deleteConfirmModal,
+body.font-size-large #deleteConfirmModal .btn {
+  font-size: 1.125rem;
+}
+body.font-size-xlarge,
+body.font-size-xlarge .navbar .btn,
+body.font-size-xlarge .navbar .dropdown-item,
+body.font-size-xlarge #settingsPage,
+body.font-size-xlarge #settingsPage .btn,
+body.font-size-xlarge #settingsPage .form-label,
+body.font-size-xlarge #settingsPage .form-control,
+body.font-size-xlarge #settingsPage .form-select,
+body.font-size-xlarge #streamsEditor,
+body.font-size-xlarge #streamsEditor .btn,
+body.font-size-xlarge #streamsEditor .form-label,
+body.font-size-xlarge #streamsEditor .form-control,
+body.font-size-xlarge #streamsEditor .form-select,
+body.font-size-xlarge #countdownContainer,
+body.font-size-xlarge #countdownContainer .btn,
+body.font-size-xlarge #jobsEditor,
+body.font-size-xlarge #jobsEditor .btn,
+body.font-size-xlarge #jobsEditor .form-label,
+body.font-size-xlarge #jobsEditor .form-control,
+body.font-size-xlarge #jobsEditor .form-select,
+body.font-size-xlarge #imagesEditor,
+body.font-size-xlarge #imagesEditor .btn,
+body.font-size-xlarge #imagesEditor .form-label,
+body.font-size-xlarge #imagesEditor .form-control,
+body.font-size-xlarge #imagesEditor .form-select,
+body.font-size-xlarge #deleteConfirmModal,
+body.font-size-xlarge #deleteConfirmModal .btn {
+  font-size: 1.3rem;
+}
+body.font-size-jumbo,
+body.font-size-jumbo .navbar .btn,
+body.font-size-jumbo .navbar .dropdown-item,
+body.font-size-jumbo #settingsPage,
+body.font-size-jumbo #settingsPage .btn,
+body.font-size-jumbo #settingsPage .form-label,
+body.font-size-jumbo #settingsPage .form-control,
+body.font-size-jumbo #settingsPage .form-select,
+body.font-size-jumbo #streamsEditor,
+body.font-size-jumbo #streamsEditor .btn,
+body.font-size-jumbo #streamsEditor .form-label,
+body.font-size-jumbo #streamsEditor .form-control,
+body.font-size-jumbo #streamsEditor .form-select,
+body.font-size-jumbo #countdownContainer,
+body.font-size-jumbo #countdownContainer .btn,
+body.font-size-jumbo #jobsEditor,
+body.font-size-jumbo #jobsEditor .btn,
+body.font-size-jumbo #jobsEditor .form-label,
+body.font-size-jumbo #jobsEditor .form-control,
+body.font-size-jumbo #jobsEditor .form-select,
+body.font-size-jumbo #imagesEditor,
+body.font-size-jumbo #imagesEditor .btn,
+body.font-size-jumbo #imagesEditor .form-label,
+body.font-size-jumbo #imagesEditor .form-control,
+body.font-size-jumbo #imagesEditor .form-select,
+body.font-size-jumbo #deleteConfirmModal,
+body.font-size-jumbo #deleteConfirmModal .btn {
+  font-size: 1.6rem;
+}
+
+.countdown-card h4,
+.countdown-card .h4 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+body.font-size-large .countdown-card h4,
+body.font-size-large .countdown-card .h4 {
+  font-size: 1.6rem;
+}
+body.font-size-xlarge .countdown-card h4,
+body.font-size-xlarge .countdown-card .h4 {
+  font-size: 1.75rem;
+}
+body.font-size-jumbo .countdown-card h4,
+body.font-size-jumbo .countdown-card .h4 {
+  font-size: 2rem;
+}
+
+body.auto-hide-menu #mainNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  background: var(--bs-body-bg);
+  will-change: transform;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+}
+body.auto-hide-menu #mainNav.nav-hidden {
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+body.auto-hide-menu .container-fluid {
+  padding-top: 60px;
+  transition: padding-top 0.3s ease;
+}
+body.auto-hide-menu #mainNav.nav-hidden ~ .container-fluid {
+  padding-top: 0.5rem;
+}
+
+#mainNav {
+  padding-top: env(safe-area-inset-top, 0);
+}
+body.auto-hide-menu .container-fluid {
+  padding-top: calc(60px + env(safe-area-inset-top, 0));
+}
+body.auto-hide-menu #mainNav.nav-hidden ~ .container-fluid {
+  padding-top: calc(0.5rem + env(safe-area-inset-top, 0));
+}
+
+#mainNav.nav-inactive {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+#streamsEditor {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);
+  padding-top: 20px;
+}
+#streamsEditorHeader {
+  flex-shrink: 0;
+}
+#streamsEditor #streamEditorList {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+#settingsPage {
+  padding-top: 20px;
+}
+
+#imagesEditor {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);
+  padding-top: 20px;
+}
+#imagesEditorHeader {
+  flex-shrink: 0;
+}
+#imagesEditor #imagesList {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+#jobsEditor {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);
+  padding-top: 20px;
+}
+#jobsEditorHeader {
+  flex-shrink: 0;
+}
+#jobsEditor #jobsList {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+#streamsEditor .editor-title {
+  font-weight: 800;
+}
+
+.card-edited {
+  box-shadow: inset 0 0 0 3px var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.editor-btn {
+  min-width: 100px;
+  padding: 0.5rem 1rem;
+  touch-action: manipulation;
+}
+.btn-wide {
+  min-width: 220px;
+  touch-action: manipulation;
+}
+body.compact .editor-btn {
+  padding: 0.25rem 0.5rem;
+}
+
+.build-number {
+  color: var(--bs-body-color);
+  opacity: 0.6;
+}
+
+.stream-drag-card {
+  cursor: default;
+  user-select: none;
+}
+.today-drag-card {
+  cursor: default;
+  user-select: none;
+}
+.today-drag-card.dragging {
+  opacity: 0.3;
+}
+.today-drag-card.drag-over-top {
+  border-top: 3px solid var(--bs-primary) !important;
+}
+.today-drag-card.drag-over-bottom {
+  border-bottom: 3px solid var(--bs-primary) !important;
+}
+
+.stream-drag-card.dragging {
+  opacity: 0.3;
+}
+.stream-drag-card.drag-over-top {
+  border-top: 3px solid var(--bs-primary) !important;
+}
+.stream-drag-card.drag-over-bottom {
+  border-bottom: 3px solid var(--bs-primary) !important;
+}
+.stream-drag-card .drag-handle {
+  cursor: grab;
+  touch-action: none;
+}
+.stream-drag-card .drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Flatpickr dark theme arrow fixes */
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg path,
+.flatpickr-calendar .flatpickr-months .flatpickr-next-month svg path {
+  fill: var(--bs-body-color) !important;
+  stroke: var(--bs-body-color) !important;
+}
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-calendar .flatpickr-months .flatpickr-next-month svg {
+  width: 12px;
+  height: 12px;
+}
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month,
+.flatpickr-calendar .flatpickr-months .flatpickr-next-month {
+  padding: 8px;
+}
+.flatpickr-calendar .flatpickr-months .numInputWrapper span.arrowUp,
+.flatpickr-calendar .flatpickr-months .numInputWrapper span.arrowDown {
+  opacity: 1;
+}
+.flatpickr-calendar .flatpickr-months .numInputWrapper span.arrowUp:after,
+.flatpickr-calendar .flatpickr-months .numInputWrapper span.arrowDown:after {
+  border-bottom-color: var(--bs-body-color);
+  border-top-color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar {
+  background: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-months .flatpickr-month {
+  background: var(--bs-body-bg);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-current-month input.cur-year {
+  color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-weekday {
+  color: var(--bs-secondary-color);
+  background: var(--bs-body-bg);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day {
+  color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.today {
+  border-color: var(--bs-primary);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.selected,
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.selected:hover {
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day:hover {
+  background: var(--bs-gray-700);
+  color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.flatpickr-disabled,
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.flatpickr-disabled:hover {
+  color: var(--bs-gray-600);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.inRange,
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.prevMonthDay.inRange,
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-day.nextMonthDay.inRange {
+  background: var(--bs-gray-700);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-time {
+  background: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-time input {
+  color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .flatpickr-calendar .flatpickr-time .flatpickr-time-separator {
+  color: var(--bs-body-color);
+}

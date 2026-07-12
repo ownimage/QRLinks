@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <!-- Incoming streams -->
+  <g opacity=".35" stroke="#fff" stroke-width="18" stroke-linecap="round" fill="none">
+    <path d="M80 140 C170 140 170 220 256 220"/>
+    <path d="M80 220 C170 220 170 250 256 250"/>
+    <path d="M80 300 C170 300 170 280 256 280"/>
+    <path d="M80 380 C170 380 170 310 256 310"/>
+  </g>
+
+  <!-- Today card -->
+  <rect x="220" y="120" width="220" height="272" rx="36"
+        fill="#fff" filter="url(#shadow)"/>
+
+  <!-- Header -->
+  <rect x="220" y="120" width="220" height="56" rx="36" fill="#f3f4f6"/>
+
+  <!-- Selected tasks -->
+  <circle cx="270" cy="230" r="14" fill="#22c55e"/>
+  <path d="M262 230 l6 6 12-14"
+        stroke="#fff"
+        stroke-width="4"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <rect x="300" y="219" width="95" height="12" rx="6" fill="#374151"/>
+
+  <circle cx="270" cy="285" r="14" fill="#22c55e"/>
+  <path d="M262 285 l6 6 12-14"
+        stroke="#fff"
+        stroke-width="4"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <rect x="300" y="274" width="70" height="12" rx="6" fill="#374151"/>
+
+  <circle cx="270" cy="340" r="14" fill="#22c55e"/>
+  <path d="M262 340 l6 6 12-14"
+        stroke="#fff"
+        stroke-width="4"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <rect x="300" y="329" width="110" height="12" rx="6" fill="#374151"/>
+
+  <!-- Today indicator -->
+  <circle cx="420" cy="92" r="42" fill="#f97316"/>
+  <text x="420" y="108"
+        font-family="system-ui,sans-serif"
+        font-size="44"
+        font-weight="700"
+        fill="#fff"
+        text-anchor="middle">✓</text>
+</svg>
