@@ -422,7 +422,7 @@ function openSettings() {
   const showDanger = localStorage.getItem("qr_showDanger") === "true";
   const showDangerCb = document.getElementById("showDanger");
   if (showDangerCb) showDangerCb.checked = showDanger;
-  ["clearAllDataRow", "refreshAppRow", "uploadStandardImagesRow"].forEach(id => {
+  ["clearAllDataRow", "refreshAppRow", "loadSampleLinksRow", "uploadStandardImagesRow"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.toggle("d-none", !showDanger);
   });
@@ -481,9 +481,10 @@ function confirmClearAllData() {
   const modalEl = document.getElementById("deleteConfirmModal");
   document.getElementById("deleteConfirmMessage").textContent = "Clear ALL data? This cannot be undone.";
   document.getElementById("deleteConfirmBtn").onclick = function() {
-    localStorage.removeItem("qr_links");
+    localStorage.setItem("qr_links", "[]");
     bootstrap.Modal.getInstance(modalEl).hide();
     closeSettings();
+    renderMain();
   };
   new bootstrap.Modal(modalEl).show();
 }
@@ -534,10 +535,37 @@ function importData() {
   input.click();
 }
 
+function seedSampleLinks() {
+  if (localStorage.getItem("qr_links") !== null) return;
+  fetch("sampleLinks.json?v=" + (typeof BUILD_NUMBER !== "undefined" ? BUILD_NUMBER : Date.now()))
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.streams) {
+        localStorage.setItem("qr_links", JSON.stringify(data.streams));
+        renderMain();
+      }
+    })
+    .catch(() => {});
+}
+
+function loadSampleLinks() {
+  fetch("sampleLinks.json?v=" + (typeof BUILD_NUMBER !== "undefined" ? BUILD_NUMBER : Date.now()))
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.streams) {
+        localStorage.setItem("qr_links", JSON.stringify(data.streams));
+        renderMain();
+        closeSettings();
+      }
+    })
+    .catch(() => alert("Failed to load sample links."));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("qr_theme") || "darkly";
   applyTheme(savedTheme);
   if (typeof seedSampleImages === "function") seedSampleImages();
+  if (typeof seedSampleLinks === "function") seedSampleLinks();
 
   renderMain();
 });

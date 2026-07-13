@@ -1,6 +1,6 @@
 const BUILD_NUMBER = "202607062100";
 
-const CACHE = "planmydays-" + BUILD_NUMBER;
+const CACHE = "qrlinks-" + BUILD_NUMBER;
 
 const PRECACHE_URLS = [
   ".",
@@ -8,15 +8,16 @@ const PRECACHE_URLS = [
   "manifest.json",
   "icon.svg",
   "sampleImages.json",
+  "sampleLinks.json",
   "css/styles.css",
   "js/settings.js",
   "js/app.js",
   "js/images.js"
 ];
 
-const CDN_CACHE = "planmydays-cdn-v1";
+const CDN_CACHE = "qrlinks-cdn-v1";
 
-const THEME_CACHE_PREFIX = "planmydays-theme-";
+const THEME_CACHE_PREFIX = "qrlinks-theme-";
 
 const BOOTSWATCH_BASE = "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/";
 

@@ -68,7 +68,7 @@ function changeDensity(value) {
 
 function changeShowDanger(enabled) {
   localStorage.setItem("qr_showDanger", enabled);
-  ["clearAllDataRow", "refreshAppRow", "uploadStandardImagesRow"].forEach(id => {
+  ["clearAllDataRow", "refreshAppRow", "loadSampleLinksRow", "uploadStandardImagesRow"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.toggle("d-none", !enabled);
   });
