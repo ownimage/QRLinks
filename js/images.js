@@ -73,10 +73,7 @@ function renderImagesEditor() {
 
     const heading = isNewImage ? "Add Image" : "Edit Image";
     singleEditor.innerHTML = `
-      <div class="d-flex align-items-center mb-3">
-        <h3 class="mb-0">${heading}</h3>
-        <button class="btn btn-outline-secondary ms-auto" onclick="cancelImageEdit()">Back</button>
-      </div>
+      <h3 class="mb-3">${heading}</h3>
       <div class="card p-3 card-edited">
         <div class="row align-items-center">
           <div class="col-auto" style="width:130px;flex:0 0 auto">
