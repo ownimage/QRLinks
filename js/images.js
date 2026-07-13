@@ -453,21 +453,29 @@ function deleteImage(index) {
 }
 
 function openImagesEditor() {
-  document.getElementById("countdownContainer").classList.add("d-none");
-  document.getElementById("streamsEditor").classList.add("d-none");
-  document.getElementById("settingsPage").classList.add("d-none");
-  document.getElementById("imagesEditor").classList.remove("d-none");
+  const streamsModal = bootstrap.Modal.getInstance(document.getElementById("streamsEditor"));
+  if (streamsModal) streamsModal.hide();
   imagesPage = 0;
   renderImagesEditor();
+  new bootstrap.Modal(document.getElementById("imagesEditor")).show();
 }
 
 function closeImagesEditor() {
-  document.getElementById("imagesEditor").classList.add("d-none");
-  document.getElementById("countdownContainer").classList.remove("d-none");
-  editingImageIndex = -1;
-  isNewImage = false;
-  editImageBackup = null;
-  renderMain();
+  const modal = bootstrap.Modal.getInstance(document.getElementById("imagesEditor"));
+  if (modal) {
+    modal.hide();
+    editingImageIndex = -1;
+    isNewImage = false;
+    editImageBackup = null;
+    document.getElementById("imagesEditor").addEventListener("hidden.bs.modal", function() {
+      renderMain();
+    }, { once: true });
+  } else {
+    editingImageIndex = -1;
+    isNewImage = false;
+    editImageBackup = null;
+    renderMain();
+  }
 }
 
 function getImageByName(name) {

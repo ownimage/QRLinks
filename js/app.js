@@ -8,9 +8,12 @@ function saveStreams(streams) {
 
 function hideAllEditors() {
   document.getElementById("countdownContainer").classList.remove("d-none");
-  document.getElementById("streamsEditor").classList.add("d-none");
-  document.getElementById("imagesEditor").classList.add("d-none");
   document.getElementById("settingsPage").classList.add("d-none");
+  ["streamsEditor", "imagesEditor"].forEach(id => {
+    const el = document.getElementById(id);
+    const modal = bootstrap.Modal.getInstance(el);
+    if (modal) modal.hide();
+  });
 }
 
 function updateNavState() {
@@ -142,17 +145,27 @@ let isNew = false;
 let dragIndex = -1;
 
 function openStreamsEditor() {
-  document.getElementById("countdownContainer").classList.add("d-none");
-  document.getElementById("streamsEditor").classList.remove("d-none");
-  document.getElementById("settingsPage").classList.add("d-none");
+  ["imagesEditor"].forEach(id => {
+    const el = document.getElementById(id);
+    const modal = bootstrap.Modal.getInstance(el);
+    if (modal) modal.hide();
+  });
   renderStreamsEditor();
+  new bootstrap.Modal(document.getElementById("streamsEditor")).show();
 }
 
 function closeStreamsEditor() {
-  document.getElementById("streamsEditor").classList.add("d-none");
-  document.getElementById("countdownContainer").classList.remove("d-none");
-  editingIndex = -1; editBuffer = null; isNew = false;
-  renderMain();
+  const modal = bootstrap.Modal.getInstance(document.getElementById("streamsEditor"));
+  if (modal) {
+    modal.hide();
+    editingIndex = -1; editBuffer = null; isNew = false;
+    document.getElementById("streamsEditor").addEventListener("hidden.bs.modal", function() {
+      renderMain();
+    }, { once: true });
+  } else {
+    editingIndex = -1; editBuffer = null; isNew = false;
+    renderMain();
+  }
 }
 
 function renderStreamsEditor() {
@@ -406,8 +419,12 @@ function addNewStream() {
 // SETTINGS
 function openSettings() {
   document.getElementById("countdownContainer").classList.add("d-none");
-  document.getElementById("streamsEditor").classList.add("d-none");
   document.getElementById("settingsPage").classList.remove("d-none");
+  ["streamsEditor", "imagesEditor"].forEach(id => {
+    const el = document.getElementById(id);
+    const modal = bootstrap.Modal.getInstance(el);
+    if (modal) modal.hide();
+  });
   document.getElementById("settingsPage").style.display = "block";
 
   const savedTheme = localStorage.getItem("qr_theme") || "darkly";

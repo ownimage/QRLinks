@@ -52,27 +52,39 @@
     <div id="countdownContainer"></div>
 
     <!-- THREADS EDITOR -->
-    <div id="streamsEditor" class="d-none">
-      <div id="streamsEditorHeader">
-        <h2 class="mb-3">Links</h2>
-        <div id="addStreamTileTop" class="mb-3"></div>
-        <div id="streamEditorFilters" class="mb-3"></div>
+    <div id="streamsEditor" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-fullscreen-lg-down">
+        <div class="modal-content">
+          <div class="modal-body p-4">
+            <div id="streamsEditorHeader">
+              <h2 class="mb-3">Links</h2>
+              <div id="addStreamTileTop" class="mb-3"></div>
+              <div id="streamEditorFilters" class="mb-3"></div>
+            </div>
+            <div id="streamEditorList"></div>
+            <div id="addStreamTile" class="mt-3"></div>
+            <div id="singleStreamEditor" class="d-none"></div>
+          </div>
+        </div>
       </div>
-      <div id="streamEditorList"></div>
-      <div id="addStreamTile" class="mt-3"></div>
-      <div id="singleStreamEditor" class="d-none"></div>
     </div>
 
     <!-- IMAGES EDITOR -->
-    <div id="imagesEditor" class="d-none">
-      <div id="imagesEditorHeader">
-        <h2 class="mb-3">Edit Images</h2>
-        <div id="addImageTileTop" class="mb-3"></div>
-        <div id="imageFilters" class="mb-3"></div>
+    <div id="imagesEditor" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-fullscreen-lg-down">
+        <div class="modal-content">
+          <div class="modal-body p-4">
+            <div id="imagesEditorHeader">
+              <h2 class="mb-3">Edit Images</h2>
+              <div id="addImageTileTop" class="mb-3"></div>
+              <div id="imageFilters" class="mb-3"></div>
+            </div>
+            <div id="imagesList"></div>
+            <div id="addImageTile" class="mt-3"></div>
+            <div id="singleImageEditor" class="d-none"></div>
+          </div>
+        </div>
       </div>
-      <div id="imagesList"></div>
-      <div id="addImageTile" class="mt-3"></div>
-      <div id="singleImageEditor" class="d-none"></div>
     </div>
 
     <!-- IMAGE PICKER MODAL (Bootstrap modal) -->
@@ -231,7 +243,7 @@
   </div>
 
   <!-- QR CODE MODAL -->
-  <div id="qrModal" class="modal fade" tabindex="-1">
+  <div id="qrModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body text-center py-4">

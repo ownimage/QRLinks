@@ -388,11 +388,10 @@ body.auto-hide-menu #mainNav.nav-hidden ~ .container-fluid {
   opacity: 0.4;
 }
 
-#streamsEditor {
+#streamsEditor .modal-body {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 56px);
-  padding-top: 20px;
+  min-height: 0;
 }
 #streamsEditorHeader {
   flex-shrink: 0;
@@ -406,11 +405,10 @@ body.auto-hide-menu #mainNav.nav-hidden ~ .container-fluid {
   padding-top: 20px;
 }
 
-#imagesEditor {
+#imagesEditor .modal-body {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 56px);
-  padding-top: 20px;
+  min-height: 0;
 }
 #imagesEditorHeader {
   flex-shrink: 0;
