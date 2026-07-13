@@ -416,6 +416,7 @@ body.auto-hide-menu #mainNav.nav-hidden ~ .container-fluid {
 #imagesEditor #imagesList {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   min-height: 0;
 }
 
