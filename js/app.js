@@ -482,6 +482,7 @@ function confirmClearAllData() {
   document.getElementById("deleteConfirmMessage").textContent = "Clear ALL data? This cannot be undone.";
   document.getElementById("deleteConfirmBtn").onclick = function() {
     localStorage.setItem("qr_links", "[]");
+    localStorage.setItem("qr_images", "[]");
     bootstrap.Modal.getInstance(modalEl).hide();
     closeSettings();
     renderMain();
@@ -493,7 +494,7 @@ function exportData() {
   const data = {
     version: 1,
     exportedAt: new Date().toISOString(),
-    streams: JSON.parse(localStorage.getItem("qr_links") || "[]"),
+    links: JSON.parse(localStorage.getItem("qr_links") || "[]"),
     images: JSON.parse(localStorage.getItem("qr_images") || "[]")
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -518,12 +519,18 @@ function importData() {
     reader.onload = evt => {
       try {
         const data = JSON.parse(evt.target.result);
-        if (!data || (!data.streams && !data.images)) {
-          alert("Invalid backup file: missing streams or images data.");
+        if (!data || (!data.links && !data.images)) {
+          alert("Invalid backup file: missing links or images data.");
           return;
         }
-        if (data.streams) localStorage.setItem("qr_links", JSON.stringify(data.streams));
-        if (data.images) localStorage.setItem("qr_images", JSON.stringify(data.images));
+        if (data.links) {
+          const existing = JSON.parse(localStorage.getItem("qr_links") || "[]");
+          localStorage.setItem("qr_links", JSON.stringify(existing.concat(data.links)));
+        }
+        if (data.images) {
+          const existing = JSON.parse(localStorage.getItem("qr_images") || "[]");
+          localStorage.setItem("qr_images", JSON.stringify(existing.concat(data.images)));
+        }
         closeSettings();
         renderMain();
       } catch (err) {
