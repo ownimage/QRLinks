@@ -87,8 +87,8 @@ function hideNav() {
   const nav = document.getElementById("mainNav");
   if (!nav) return;
   if (document.getElementById("settingsPage").classList.contains("d-none") &&
-      document.getElementById("streamsEditor").classList.contains("d-none") &&
-      document.getElementById("imagesEditor").classList.contains("d-none")) {
+      !document.getElementById("streamsEditor").classList.contains("show") &&
+      !document.getElementById("imagesEditor").classList.contains("show")) {
     nav.classList.add("nav-hidden");
     autoHideCooldown = true;
     setTimeout(() => { autoHideCooldown = false; }, 600);
