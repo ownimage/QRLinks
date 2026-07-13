@@ -75,38 +75,41 @@ function renderImagesEditor() {
     singleEditor.innerHTML = `
       <h3 class="mb-3">${heading}</h3>
       <div class="card p-3 card-edited">
-        <div class="row align-items-center">
-          <div class="col-auto" style="width:130px;flex:0 0 auto">
-            ${hasData
-              ? `<img src="${img.data}" class="date-img">`
-              : `<div class="date-img d-flex align-items-center justify-content-center text-secondary border rounded">No image</div>`
-            }
-            <button class="btn btn-primary btn-sm mt-2 w-100 text-nowrap" onclick="openImageUpload(${editingImageIndex})">Upload</button>
-          </div>
-          <div class="col">
-            <input class="form-control" value="${escapeHtml(img.name)}" onchange="editImageField('name', this.value); checkDuplicateName()" oninput="checkDuplicateName()">
-            <div id="imageNameError" class="text-danger mt-1" style="display:none">ERROR: There is already an image with this name.</div>
-            <div class="d-flex gap-2 mt-2 align-items-center flex-wrap">
-              <button class="btn btn-success editor-btn" onclick="doneImageEdit(${editingImageIndex})">OK</button>
-              <label class="form-label mb-0">Line:</label>
-              <input type="color" value="${lineVal}" oninput="editImageColor(${editingImageIndex}, 'stroke', this.value)">
-              <label class="form-check-label mb-0">
-                <input type="checkbox" ${colors.line === 'none' || !colors.line ? 'checked' : ''} onchange="editImageStrokeNone(${editingImageIndex}, this.checked)">
-                none
-              </label>
-              <label class="form-label mb-0">Fill:</label>
-              <input type="color" value="${fillVal}" oninput="editImageColor(${editingImageIndex}, 'fill', this.value)">
-              <label class="form-check-label mb-0">
-                <input type="checkbox" ${colors.fill === 'none' || !colors.fill ? 'checked' : ''} onchange="editImageFillNone(${editingImageIndex}, this.checked)">
-                none
-              </label>
-              <label class="form-label mb-0">Width:</label>
-              <input type="number" min="0.5" max="10" step="0.5" value="${colors.strokeWidth || '2'}" style="width:60px" class="form-control form-control-sm d-inline-block" oninput="editImageStrokeWidth(${editingImageIndex}, this.value)">
-            </div>
-          </div>
-            <div class="col-auto d-flex align-items-center">
-              <button class="btn btn-secondary editor-btn" onclick="cancelImageEdit()">Cancel</button>
-            </div>
+        <div class="mb-2">
+          <label class="form-label mb-1">Name</label>
+          <input class="form-control" value="${escapeHtml(img.name)}" onchange="editImageField('name', this.value); checkDuplicateName()" oninput="checkDuplicateName()">
+          <div id="imageNameError" class="text-danger mt-1" style="display:none">ERROR: There is already an image with this name.</div>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-2">
+          ${hasData
+            ? `<img src="${img.data}" class="date-img">`
+            : `<div class="date-img d-flex align-items-center justify-content-center text-secondary border rounded">No image</div>`
+          }
+          <button class="btn btn-primary editor-btn align-self-center" onclick="openImageUpload(${editingImageIndex})">Upload</button>
+        </div>
+        <div class="d-flex gap-2 align-items-center flex-wrap mb-2">
+          <label class="form-label mb-0">Line:</label>
+          <input type="color" value="${lineVal}" oninput="editImageColor(${editingImageIndex}, 'stroke', this.value)">
+          <label class="form-check-label mb-0">
+            <input type="checkbox" ${colors.line === 'none' || !colors.line ? 'checked' : ''} onchange="editImageStrokeNone(${editingImageIndex}, this.checked)">
+            none
+          </label>
+        </div>
+        <div class="d-flex gap-2 align-items-center flex-wrap mb-2">
+          <label class="form-label mb-0">Fill:</label>
+          <input type="color" value="${fillVal}" oninput="editImageColor(${editingImageIndex}, 'fill', this.value)">
+          <label class="form-check-label mb-0">
+            <input type="checkbox" ${colors.fill === 'none' || !colors.fill ? 'checked' : ''} onchange="editImageFillNone(${editingImageIndex}, this.checked)">
+            none
+          </label>
+        </div>
+        <div class="d-flex gap-2 align-items-center flex-wrap mb-3">
+          <label class="form-label mb-0">Width:</label>
+          <input type="number" min="0.5" max="10" step="0.5" value="${colors.strokeWidth || '2'}" style="width:70px" class="form-control form-control-sm d-inline-block" oninput="editImageStrokeWidth(${editingImageIndex}, this.value)">
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-success editor-btn flex-fill" onclick="doneImageEdit(${editingImageIndex})">OK</button>
+          <button class="btn btn-secondary editor-btn flex-fill" onclick="cancelImageEdit()">Cancel</button>
         </div>
       </div>
     `;
