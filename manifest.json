@@ -1,7 +1,7 @@
 {
-  "name": "Plan My Day",
-  "short_name": "PlanDay",
-  "description": "Plan your day and track important events",
+  "name": "QR Links",
+  "short_name": "QRLinks",
+  "description": "QR Links app",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
