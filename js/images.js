@@ -136,7 +136,7 @@ function renderImagesEditor() {
     const colors = getImageColors(img.data);
     card.innerHTML = `
       <div class="row align-items-center">
-        <div class="col-auto" style="width:130px;flex:0 0 auto">
+        <div class="col-auto">
           <img src="${img.data}" class="date-img">
         </div>
         <div class="col">
